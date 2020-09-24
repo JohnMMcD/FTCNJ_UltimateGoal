@@ -29,16 +29,20 @@
 
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import android.content.Context;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ReadWriteFile;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
-
+import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
+import com.qualcomm.robotcore.util.ReadWriteFile;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -52,26 +56,12 @@ import java.util.List;
  * is explained below.
  */
 @TeleOp(name = "TensorFlow Object Detection UG 5873", group = "Trial")
-@Disabled
 public class TensorFlowObjectDetectionUG5873 extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
 
-    /*
-     * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
-     * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
-     * A Vuforia 'Development' license key, can be obtained free of charge from the Vuforia developer
-     * web site at https://developer.vuforia.com/license-manager.
-     *
-     * Vuforia license keys are always 380 characters long, and look as if they contain mostly
-     * random data. As an example, here is a example of a fragment of a valid key:
-     *      ... yIgIzTqZ4mWjk9wd3cZO9T1axEqzuhxoGlfOOI2dRzKS4T0hQ8kT ...
-     * Once you've obtained a license key, copy the string from the Vuforia web site
-     * and paste it in to your code on the next line, between the double quotes.
-     */
-    private static final String VUFORIA_KEY =
-            " -- YOUR NEW VUFORIA KEY GOES HERE  --- ";
+//     private static final String VUFORIA_KEY =  ;
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
@@ -89,6 +79,7 @@ public class TensorFlowObjectDetectionUG5873 extends LinearOpMode {
     public void runOpMode() {
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
+
         initVuforia();
         initTfod();
 
@@ -152,8 +143,23 @@ public class TensorFlowObjectDetectionUG5873 extends LinearOpMode {
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+        String filename = "Vuforia_Key.txt";
+        File file = AppUtil.getInstance().getSettingsFile(filename);
 
-        parameters.vuforiaLicenseKey = VUFORIA_KEY;
+        // To use this, get a Vuforia key, then paste its value in line 152 below
+        // Then uncomment 152 through 155 and run the op mode once on each phone your team owns.
+        // After running it once, you can delete these lines
+//        String contents_written = "AUKmx...Jq";
+//        ReadWriteFile.writeFile(file, contents_written);
+//        telemetry.log().add("saved to file '%s'", filename);
+//        telemetry.log().add("Written: '%s'", contents_written);
+        // Before wiping the phone, copy the /FIRST/settings directory off it, then
+        // restore this directory to the new phone
+        String contents_read = ReadWriteFile.readFile(file);
+
+//        telemetry.log().add("Read: '%s'", contents_read);
+
+        parameters.vuforiaLicenseKey = contents_read;
         parameters.cameraDirection = CameraDirection.BACK;
 
         //  Instantiate the Vuforia engine
