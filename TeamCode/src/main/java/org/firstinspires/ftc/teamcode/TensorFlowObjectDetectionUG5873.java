@@ -61,6 +61,7 @@ public class TensorFlowObjectDetectionUG5873 extends LinearOpMode {
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
 
+        // Add a comment here
 //     private static final String VUFORIA_KEY =  ;
 
     /**
