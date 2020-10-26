@@ -89,3 +89,4 @@ lint/tmp/
 # Vuforia
 vuforia_key.txt
 
+/Previous_OpModes/
