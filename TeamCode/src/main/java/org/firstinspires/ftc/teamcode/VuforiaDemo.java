@@ -38,10 +38,9 @@ public class VuforiaDemo extends LinearOpMode
     private OpenGLMatrix lastKnownLocation;
     private OpenGLMatrix phoneLocation;
 
-    // Create a file with this name in the /FIRST/settings directory on the phone
-    // and paste in the value of the Vuforia key into this file. No comments or extra spaces, please.
-    //String filename = "Vuforia_Key.txt";
-    // File file = AppUtil.getInstance().getSettingsFile(filename);
+    // Create a file /FIRST/settings/Vuforia_Key.txt on the phone
+    // and paste in the value of the Vuforia key into this file.
+    // No comments or extra spaces, please.
     private static final String VUFORIA_KEY = ReadWriteFile.readFile(AppUtil.getInstance().getSettingsFile("Vuforia_Key.txt"));
 
     private float robotX = 0;
@@ -74,12 +73,14 @@ public class VuforiaDemo extends LinearOpMode
 
             robotX = coordinates[0];
             robotY = coordinates[1];
-            robotAngle = Orientation.getOrientation(lastKnownLocation, AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES).thirdAngle;
+            robotAngle = Orientation.getOrientation(lastKnownLocation,
+                    AxesReference.EXTRINSIC,
+                    AxesOrder.XYZ,
+                    AngleUnit.DEGREES).thirdAngle;
 
             // Send information about whether the target is visible, and where the robot is
             telemetry.addData("Tracking " + target.getName(), listener.isVisible());
             telemetry.addData("Last Known Location", formatMatrix(lastKnownLocation));
-
             // Send telemetry and idle to let hardware catch up
             telemetry.update();
             idle();
@@ -101,8 +102,15 @@ public class VuforiaDemo extends LinearOpMode
         Vuforia.setHint(HINT.HINT_MAX_SIMULTANEOUS_IMAGE_TARGETS, 4);
 
         // Setup the target to be tracked
-        target = visionTargets.get(0); // 0 corresponds to the wheels target
-        target.setName("Wheels Target");
+        target = visionTargets.get(0); // Use the index from the list below in UltimateGoal.xml
+        /*
+            <ImageTarget name="BlueTowerGoal"
+            <ImageTarget name="RedTowerGoal"
+            <ImageTarget name="RedAlliance"
+            <ImageTarget name="BlueAlliance"
+            <ImageTarget name="FrontWall"
+         */
+        target.setName("BlueTowerGoal");
         target.setLocation(createMatrix(0, 500, 0, 90, 0, 90));
 
         // Set phone location on robot
