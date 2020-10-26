@@ -90,3 +90,7 @@ lint/tmp/
 vuforia_key.txt
 
 /Previous_OpModes/
+/FtcRobotController/src/main/assets/UltimateGoal_dat/
+/FtcRobotController/src/main/assets/UltimateGoal_dat.zip
+/robotControllerLog.txt
+/navigation-images-us-letter.pdf
