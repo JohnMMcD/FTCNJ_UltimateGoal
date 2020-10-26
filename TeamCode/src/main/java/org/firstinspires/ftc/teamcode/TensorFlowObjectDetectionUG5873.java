@@ -144,6 +144,7 @@ public class TensorFlowObjectDetectionUG5873 extends LinearOpMode {
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          */
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
+        // Put this file in the /FIRST/settings directory on the phone
         String filename = "Vuforia_Key.txt";
         File file = AppUtil.getInstance().getSettingsFile(filename);
 
