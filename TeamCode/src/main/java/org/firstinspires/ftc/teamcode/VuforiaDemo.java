@@ -18,12 +18,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefau
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 
-
-import java.io.File;
-
 /*
- * This OpMode was written for the VuforiaDemo Basics video. This demonstrates basic principles of
- * using VuforiaDemo in FTC.
+ * This OpMode was written by Swerve Robotics for the VuforiaDemo Basics video at https://youtu.be/gbcdveLP-Ns .
+ * This demonstrates basic principles of using VuforiaDemo in FTC.
+ * Very minor changes for UltimateGoal were done by John McDonnell.
+ * I did a test with the RC phone pointed directly at a computer screen (not printed out
+ * targets). I recorded the distances, in mm, both reported by the code and measured with
+ * a measuring tape. I calculated the ratio of the latter to the former. The ratio was
+ * fairly consistent, so this may be a usable technique.
+
+Reported   Measured  Factor
+1228        711.2    0.58
+2078       1287.7    0.61
+
  */
 @Autonomous(name = "Vuforia")
 public class VuforiaDemo extends LinearOpMode
@@ -130,7 +137,7 @@ public class VuforiaDemo extends LinearOpMode
                         AxesReference.EXTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES, u, v, w));
     }
 
-    // Formats a matrix into a readable string
+    // Formats a matrix into a readable string showing the orientation and translation of the matrix
     private String formatMatrix(OpenGLMatrix matrix)
     {
         return matrix.formatAsTransform();
