@@ -99,6 +99,7 @@ public class PushJerseybotTeleopArmPosition extends OpMode{
         {
             robot.leftArm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             robot.leftArm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            armPosition = 0;
         }
 
         // Use gamepad buttons to move the arm up (Y) and down (A). Don't go down if touch sensor is pressed.
@@ -108,9 +109,15 @@ public class PushJerseybotTeleopArmPosition extends OpMode{
             armPosition = armPosition - 1;
 
         robot.leftArm.setTargetPosition(armPosition);
+        if (robot.leftArm.getCurrentPosition() < armPosition)
+            robot.leftArm.setPower(-.5);
+        else
+            robot.leftArm.setPower(0.5);
+
 
         // Send telemetry message to signify robot running;
-        telemetry.addData("armPosition", robot.leftArm.getCurrentPosition());
+        telemetry.addData("armPosition Commanded", armPosition);
+        telemetry.addData("armPosition Actual", robot.leftArm.getCurrentPosition());
         telemetry.addData("armVelocity", robot.leftArm.getVelocity());
         telemetry.addData("touch", robot.digitalTouch.isPressed());
         telemetry.addData("g1", gamepad1.toString());
