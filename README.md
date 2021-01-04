@@ -1,6 +1,6 @@
 
 ## NOTICE
-## This is not the public repository!
+## This is not the public repository! But thanks for browsing it.
 
 ~~This repository contains the public FTC SDK for the Ultimate Goal (2020-2021) competition season.~~
 
